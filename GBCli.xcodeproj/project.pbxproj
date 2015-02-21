@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		73484A011511FD010031EF85 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73484A001511FD010031EF85 /* Foundation.framework */; };
 		73484A041511FD010031EF85 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 73484A031511FD010031EF85 /* main.m */; };
 		73484A1B1511FDA90031EF85 /* GBCommandLineParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 73484A161511FDA90031EF85 /* GBCommandLineParser.m */; };
 		73484A1C1511FDA90031EF85 /* GBOptionsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 73484A181511FDA90031EF85 /* GBOptionsHelper.m */; };
@@ -31,17 +30,15 @@
 /* Begin PBXFileReference section */
 		7331C3C9192F0BA3003B8363 /* GBCli.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBCli.h; sourceTree = "<group>"; };
 		734849FC1511FD010031EF85 /* GBCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GBCli; sourceTree = BUILT_PRODUCTS_DIR; };
-		73484A001511FD010031EF85 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		73484A031511FD010031EF85 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		73484A061511FD010031EF85 /* GBCli-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GBCli-Prefix.pch"; sourceTree = "<group>"; };
+		73484A031511FD010031EF85 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = GBCli/main.m; sourceTree = "<group>"; };
 		73484A151511FDA90031EF85 /* GBCommandLineParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBCommandLineParser.h; sourceTree = "<group>"; };
 		73484A161511FDA90031EF85 /* GBCommandLineParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBCommandLineParser.m; sourceTree = "<group>"; };
 		73484A171511FDA90031EF85 /* GBOptionsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBOptionsHelper.h; sourceTree = "<group>"; };
 		73484A181511FDA90031EF85 /* GBOptionsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBOptionsHelper.m; sourceTree = "<group>"; };
 		73484A191511FDA90031EF85 /* GBSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBSettings.h; sourceTree = "<group>"; };
 		73484A1A1511FDA90031EF85 /* GBSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBSettings.m; sourceTree = "<group>"; };
-		73484A1E1511FE9E0031EF85 /* GBSettings+Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GBSettings+Application.h"; sourceTree = "<group>"; };
-		73484A1F1511FE9E0031EF85 /* GBSettings+Application.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GBSettings+Application.m"; sourceTree = "<group>"; };
+		73484A1E1511FE9E0031EF85 /* GBSettings+Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GBSettings+Application.h"; path = "GBCli/GBSettings+Application.h"; sourceTree = "<group>"; };
+		73484A1F1511FE9E0031EF85 /* GBSettings+Application.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GBSettings+Application.m"; path = "GBCli/GBSettings+Application.m"; sourceTree = "<group>"; };
 		735219B4192FA1150031EAF0 /* GBPrint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBPrint.h; sourceTree = "<group>"; };
 		735219B5192FA1150031EAF0 /* GBPrint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBPrint.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -51,7 +48,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73484A011511FD010031EF85 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,8 +57,10 @@
 		734849F11511FD010031EF85 = {
 			isa = PBXGroup;
 			children = (
-				73484A021511FD010031EF85 /* GBCli */,
-				734849FF1511FD010031EF85 /* Frameworks */,
+				73484A031511FD010031EF85 /* main.m */,
+				73484A1E1511FE9E0031EF85 /* GBSettings+Application.h */,
+				73484A1F1511FE9E0031EF85 /* GBSettings+Application.m */,
+				73484A141511FD8B0031EF85 /* lib */,
 				734849FD1511FD010031EF85 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -73,42 +71,6 @@
 				734849FC1511FD010031EF85 /* GBCli */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		734849FF1511FD010031EF85 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				73484A001511FD010031EF85 /* Foundation.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		73484A021511FD010031EF85 /* GBCli */ = {
-			isa = PBXGroup;
-			children = (
-				73484A141511FD8B0031EF85 /* lib */,
-				73484A121511FD7F0031EF85 /* example */,
-			);
-			path = GBCli;
-			sourceTree = "<group>";
-		};
-		73484A051511FD010031EF85 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				73484A061511FD010031EF85 /* GBCli-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		73484A121511FD7F0031EF85 /* example */ = {
-			isa = PBXGroup;
-			children = (
-				73484A031511FD010031EF85 /* main.m */,
-				73484A1E1511FE9E0031EF85 /* GBSettings+Application.h */,
-				73484A1F1511FE9E0031EF85 /* GBSettings+Application.m */,
-				73484A051511FD010031EF85 /* Supporting Files */,
-			);
-			name = example;
 			sourceTree = "<group>";
 		};
 		73484A141511FD8B0031EF85 /* lib */ = {
@@ -125,7 +87,7 @@
 				735219B5192FA1150031EAF0 /* GBPrint.m */,
 			);
 			name = lib;
-			path = src;
+			path = GBCli/src;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,8 +220,6 @@
 		73484A0C1511FD010031EF85 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "GBCli/GBCli-Prefix.pch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -267,8 +227,6 @@
 		73484A0D1511FD010031EF85 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "GBCli/GBCli-Prefix.pch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

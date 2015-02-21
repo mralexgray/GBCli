@@ -16,23 +16,19 @@
 
 #pragma mark - Initialization & disposal
 
-+ (instancetype)mySettingsWithName:(NSString *)name parent:(GBSettings *)parent;
++ (instancetype)mySettingsWithName:(NSString*)name parent:(GBSettings*)parent;
 
 #pragma mark - Project information
 
-@property (nonatomic, copy) NSString *projectName;
-@property (nonatomic, copy) NSString *projectVersion;
+@property (nonatomic, copy) NSString *projectName, *projectVersion;
 
 #pragma mark - Paths
 
-@property (nonatomic, strong) NSArray *inputPaths;
-@property (nonatomic, strong) NSArray *outputPaths;
+@property (nonatomic) NSArray *inputPaths,*outputPaths;
 
 #pragma mark - Debugging aid
 
-@property (nonatomic, assign) BOOL printSettings;
-@property (nonatomic, assign) BOOL printVersion;
-@property (nonatomic, assign) BOOL printHelp;
+@property (nonatomic) BOOL printSettings, printVersion, printHelp;
 
 @end
 

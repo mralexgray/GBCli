@@ -46,7 +46,7 @@ static NSUInteger GBOptionInternalEndGroup = 1 << 10;
 
 #pragma mark - Options registration
 
-- (void)registerOptionsFromDefinitions:(GBOptionDefinition *)definitions {
+- (void)registerOptionsFromDefinitions:(GBOptionDefinition*)definitions {
 	GBOptionDefinition *definition = definitions;
 	while (definition->longOption || definition->description) {
 		[self registerOption:definition->shortOption long:definition->longOption description:definition->description flags:definition->flags];
@@ -54,15 +54,15 @@ static NSUInteger GBOptionInternalEndGroup = 1 << 10;
 	}
 }
 
-- (void)registerSeparator:(NSString *)description {
+- (void)registerSeparator:(NSString*)description {
 	[self registerOption:0 long:nil description:description flags:GBOptionSeparator];
 }
 
-- (void)registerGroup:(NSString *)name description:(NSString *)description optionsBlock:(void(^)(GBOptionsHelper *options))block {
+- (void)registerGroup:(NSString*)name description:(NSString*)description optionsBlock:(void(^)(GBOptionsHelper *options))block {
 	[self registerGroup:name description:description flags:0 optionsBlock:block];
 }
 
-- (void)registerGroup:(NSString *)name description:(NSString *)description flags:(GBOptionFlags)flags optionsBlock:(void(^)(GBOptionsHelper *options))block {
+- (void)registerGroup:(NSString*)name description:(NSString*)description flags:(GBOptionFlags)flags optionsBlock:(void(^)(GBOptionsHelper *options))block {
 	NSParameterAssert(block != nil);
 	OptionDefinition *definition = [[OptionDefinition alloc] init];
 	definition.shortOption = 0;
@@ -78,7 +78,7 @@ static NSUInteger GBOptionInternalEndGroup = 1 << 10;
 	[self.registeredOptions addObject:endDefinition];
 }
 
-- (void)registerOption:(char)shortName long:(NSString *)longName description:(NSString *)description flags:(GBOptionFlags)flags {
+- (void)registerOption:(char)shortName long:(NSString*)longName description:(NSString*)description flags:(GBOptionFlags)flags {
 	OptionDefinition *definition = [[OptionDefinition alloc] init];
 	definition.shortOption = shortName;
 	definition.longOption = longName;
@@ -89,7 +89,7 @@ static NSUInteger GBOptionInternalEndGroup = 1 << 10;
 
 #pragma mark - Integration with other components
 
-- (void)registerOptionsToCommandLineParser:(GBCommandLineParser *)parser {
+- (void)registerOptionsToCommandLineParser:(GBCommandLineParser*)parser {
 	[self enumerateOptions:^(OptionDefinition *definition, BOOL *stop) {
 		if (![self isCmdLine:definition]) return;
 		if ([self isSeparator:definition]) return;
@@ -111,7 +111,7 @@ static NSUInteger GBOptionInternalEndGroup = 1 << 10;
 
 #pragma mark - Diagnostic info
 
-- (void)printValuesFromSettings:(GBSettings *)settings {	
+- (void)printValuesFromSettings:(GBSettings*)settings {	
 #define GB_UPDATE_MAX_LENGTH(value) \
 	NSNumber *length = [lengths objectAtIndex:columns.count]; \
 	NSUInteger maxLength = MAX(value.length, length.unsignedIntegerValue); \
@@ -173,7 +173,7 @@ static NSUInteger GBOptionInternalEndGroup = 1 << 10;
 				id value = [settings objectForKey:longOption];
 				if ([settings isKeyArray:longOption]) {
 					NSMutableString *arrayValue = [NSMutableString string];
-					[(NSArray *)value enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
+					[(NSArray*)value enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
 						GBSettings *level = [settings settingsForArrayValue:obj key:longOption];
 						if (level != settings) return;
 						if (arrayValue.length > 0) [arrayValue appendString:@", "];
@@ -328,18 +328,18 @@ static NSUInteger GBOptionInternalEndGroup = 1 << 10;
 
 #pragma mark - Application information
 
-- (NSString *)applicationNameFromBlockOrDefault {
+- (NSString*)applicationNameFromBlockOrDefault {
 	if (self.applicationName) return self.applicationName();
 	NSProcessInfo *process = [NSProcessInfo processInfo];
 	return process.processName;
 }
 
-- (NSString *)applicationVersionFromBlockOrNil {
+- (NSString*)applicationVersionFromBlockOrNil {
 	if (self.applicationVersion) return self.applicationVersion();
 	return nil;
 }
 
-- (NSString *)applicationBuildFromBlockOrNil {
+- (NSString*)applicationBuildFromBlockOrNil {
 	if (self.applicationBuild) return self.applicationBuild();
 	return nil;
 }
@@ -369,31 +369,31 @@ static NSUInteger GBOptionInternalEndGroup = 1 << 10;
 	}];
 }
 
-- (NSUInteger)requirements:(OptionDefinition *)definition {
+- (NSUInteger)requirements:(OptionDefinition*)definition {
 	return (definition.flags & 0b11);
 }
 
-- (BOOL)isSeparator:(OptionDefinition *)definition {
+- (BOOL)isSeparator:(OptionDefinition*)definition {
 	return ((definition.flags & GBOptionSeparator) > 0);
 }
 
-- (BOOL)isOptionGroup:(OptionDefinition *)definition {
+- (BOOL)isOptionGroup:(OptionDefinition*)definition {
 	return ((definition.flags & GBOptionGroup) > 0);
 }
 
-- (BOOL)isOptionGroupEnd:(OptionDefinition *)definition {
+- (BOOL)isOptionGroupEnd:(OptionDefinition*)definition {
 	return ((definition.flags & GBOptionInternalEndGroup) > 0);
 }
 
-- (BOOL)isCmdLine:(OptionDefinition *)definition {
+- (BOOL)isCmdLine:(OptionDefinition*)definition {
 	return ((definition.flags & GBOptionNoCmdLine) == 0);
 }
 
-- (BOOL)isPrint:(OptionDefinition *)definition {
+- (BOOL)isPrint:(OptionDefinition*)definition {
 	return ((definition.flags & GBOptionNoPrint) == 0);
 }
 
-- (BOOL)isHelp:(OptionDefinition *)definition {
+- (BOOL)isHelp:(OptionDefinition*)definition {
 	return ((definition.flags & GBOptionNoHelp) == 0);
 }
 
@@ -403,7 +403,7 @@ static NSUInteger GBOptionInternalEndGroup = 1 << 10;
 
 @implementation GBCommandLineParser (GBOptionsHelper)
 
-- (void)registerOptions:(GBOptionsHelper *)options {
+- (void)registerOptions:(GBOptionsHelper*)options {
 	[options registerOptionsToCommandLineParser:self];
 }
 

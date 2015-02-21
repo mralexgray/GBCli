@@ -10,11 +10,12 @@
 #import "GBCli.h"
 
 void registerOptions(GBOptionsHelper *options) {
-	[options registerSeparator:@"OPTIONS:"];
+
+  [options registerSeparator:@"OPTIONS:"];
 	
-	[options registerOption:0 long:GBSettingKeys.printSettings description:@"Print settings for current run" flags:GBOptionNoValue];
-	[options registerOption:'v' long:GBSettingKeys.printVersion description:@"Display version and exit" flags:GBValueNone|GBOptionNoPrint];
-	[options registerOption:'?' long:GBSettingKeys.printHelp description:@"Diusplay this help and exit" flags:GBValueNone|GBOptionNoPrint];
+	[options registerOption:0   long:GBSettingKeys.printSettings  description:@"Print settings for current run" flags:GBOptionNoValue];
+	[options registerOption:'v' long:GBSettingKeys.printVersion   description:@"Display version and exit" flags:GBValueNone|GBOptionNoPrint];
+	[options registerOption:'?' long:GBSettingKeys.printHelp      description:@"Diusplay this help and exit" flags:GBValueNone|GBOptionNoPrint];
 	
 	[options registerSeparator:@"COMMANDS:"];
 	
@@ -30,15 +31,16 @@ void registerOptions(GBOptionsHelper *options) {
 
 int main(int argc, char * argv[]) {
 	@autoreleasepool {
+
 		// Initialize settings stack.
 		GBSettings *factoryDefaults = [GBSettings mySettingsWithName:@"Factory" parent:nil];
 		GBSettings *fileSettings = [GBSettings mySettingsWithName:@"File" parent:factoryDefaults];
 		GBSettings *settings = [GBSettings mySettingsWithName:@"CmdLine" parent:fileSettings];
 		[factoryDefaults applyFactoryDefaults];
-		[fileSettings loadSettingsFromPlist:[@"~/Downloads/mysettings.plist" stringByStandardizingPath] error:nil];
+		[fileSettings loadSettingsFromPlist:@"~/Downloads/mysettings.plist".stringByStandardizingPath error:nil];
 		
 		// Initialize options helper class and prepare injection strings.
-		GBOptionsHelper *options = [[GBOptionsHelper alloc] init];		
+    GBOptionsHelper *options = GBOptionsHelper.new;
 		options.applicationVersion = ^{ return @"1.0"; };
 		options.applicationBuild = ^{ return @"100"; };
 		options.printValuesHeader = ^{ return @"%APPNAME version %APPVERSION (build %APPBUILD)\n"; };

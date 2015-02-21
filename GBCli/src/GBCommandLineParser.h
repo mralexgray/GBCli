@@ -47,27 +47,27 @@ typedef void(^GBCommandLineParseBlock)(GBParseFlags flags, NSString *argument, i
 
 #pragma mark - Options registration
 
-- (void)beginRegisterOptionGroup:(NSString *)name;
+- (void)beginRegisterOptionGroup:(NSString*)name;
 - (void)endRegisterOptionGroup; // optional; if another beginRegisterOptionGroup: is enountered, a new group is started. Use it if you want to register "standalone" options after group.
-- (void)registerOption:(NSString *)longOption shortcut:(char)shortOption requirement:(GBValueRequirements)requirement;
-- (void)registerOption:(NSString *)longOption requirement:(GBValueRequirements)requirement;
-- (void)registerSwitch:(NSString *)longOption shortcut:(char)shortOption;
-- (void)registerSwitch:(NSString *)longOption;
+- (void)registerOption:(NSString*)longOption shortcut:(char)shortOption requirement:(GBValueRequirements)requirement;
+- (void)registerOption:(NSString*)longOption requirement:(GBValueRequirements)requirement;
+- (void)registerSwitch:(NSString*)longOption shortcut:(char)shortOption;
+- (void)registerSwitch:(NSString*)longOption;
 
 #pragma mark - Options parsing
 
-- (void)registerSettings:(GBSettings *)settings;
+- (void)registerSettings:(GBSettings*)settings;
 - (BOOL)parseOptionsUsingDefaultArguments;
 - (BOOL)parseOptionsWithArguments:(char **)argv count:(int)argc;
-- (BOOL)parseOptionsWithArguments:(NSArray *)arguments commandLine:(NSString *)cmd;
+- (BOOL)parseOptionsWithArguments:(NSArray*)arguments commandLine:(NSString*)cmd;
 
 - (BOOL)parseOptionsUsingDefaultArgumentsWithBlock:(GBCommandLineParseBlock)handler;
 - (BOOL)parseOptionsWithArguments:(char **)argv count:(int)argc block:(GBCommandLineParseBlock)handler;
-- (BOOL)parseOptionsWithArguments:(NSArray *)arguments commandLine:(NSString *)cmd block:(GBCommandLineParseBlock)handler;
+- (BOOL)parseOptionsWithArguments:(NSArray*)arguments commandLine:(NSString*)cmd block:(GBCommandLineParseBlock)handler;
 
 #pragma mark - Getting parsed results
 
-- (id)valueForOption:(NSString *)longOption;
+- (id)valueForOption:(NSString*)longOption;
 
 @property (nonatomic, readonly) NSArray *arguments;
 

@@ -13,10 +13,10 @@ static NSString * const GBSettingsArgumentsKey = @"B450A340-EC4F-40EC-B18D-B52DB
 #pragma mark - 
 
 @interface GBSettings ()
-@property (nonatomic, readwrite, copy) NSString *name;
-@property (nonatomic, readwrite, strong) GBSettings *parent;
-@property (nonatomic, strong) NSMutableSet *arrayKeys;
-@property (nonatomic, strong) NSMutableDictionary *storage;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic) GBSettings *parent;
+@property (nonatomic) NSMutableSet *arrayKeys;
+@property (nonatomic) NSMutableDictionary *storage;
 @end
 
 #pragma mark -
@@ -25,11 +25,11 @@ static NSString * const GBSettingsArgumentsKey = @"B450A340-EC4F-40EC-B18D-B52DB
 
 #pragma mark - Initialization & disposal
 
-+ (instancetype)settingsWithName:(NSString *)name parent:(GBSettings *)parent {
++ (instancetype)settingsWithName:(NSString*)name parent:(GBSettings*)parent {
 	return [[self alloc] initWithName:name parent:parent];
 }
 
-- (instancetype)initWithName:(NSString *)name parent:(GBSettings *)parent {
+- (instancetype)initWithName:(NSString*)name parent:(GBSettings*)parent {
 	self = [super init];
 	if (self) {
 		self.name = name;
@@ -43,7 +43,7 @@ static NSString * const GBSettingsArgumentsKey = @"B450A340-EC4F-40EC-B18D-B52DB
 
 #pragma mark - Settings serialization support
 
-- (BOOL)loadSettingsFromPlist:(NSString *)path error:(NSError **)error {
+- (BOOL)loadSettingsFromPlist:(NSString*)path error:(NSError **)error {
 	NSFileManager *manager = [NSFileManager defaultManager];
 	if (![manager fileExistsAtPath:path]) return NO;
 	
@@ -73,7 +73,7 @@ static NSString * const GBSettingsArgumentsKey = @"B450A340-EC4F-40EC-B18D-B52DB
 	return YES;
 }
 
-- (BOOL)saveSettingsToPlist:(NSString *)path error:(NSError **)error {
+- (BOOL)saveSettingsToPlist:(NSString*)path error:(NSError **)error {
 	// Note that we only save settings from current level!
 	NSData *data = [NSPropertyListSerialization dataWithPropertyList:self.storage format:NSPropertyListXMLFormat_v1_0 options:0 error:error];
 	if (!data) return NO;
@@ -82,7 +82,7 @@ static NSString * const GBSettingsArgumentsKey = @"B450A340-EC4F-40EC-B18D-B52DB
 
 #pragma mark - Values handling
 
-- (id)objectForKey:(NSString *)key {
+- (id)objectForKey:(NSString*)key {
 	if ([self isKeyArray:key]) {
 		NSMutableArray *allValues = [NSMutableArray array];
 		GBSettings *settings = self;
@@ -96,7 +96,7 @@ static NSString * const GBSettingsArgumentsKey = @"B450A340-EC4F-40EC-B18D-B52DB
 	GBSettings *level = [self settingsForKey:key];
 	return [level objectForLocalKey:key];
 }
-- (void)setObject:(id)value forKey:(NSString *)key {
+- (void)setObject:(id)value forKey:(NSString*)key {
 	if ([self isKeyArray:key] && ![key isKindOfClass:[NSArray class]]) {
 		NSMutableArray *array = [self.storage objectForKey:key];
 		if (![array isKindOfClass:[NSMutableArray class]]) {
@@ -114,45 +114,45 @@ static NSString * const GBSettingsArgumentsKey = @"B450A340-EC4F-40EC-B18D-B52DB
 	[self setObject:value forLocalKey:key];
 }
 
-- (BOOL)boolForKey:(NSString *)key {
+- (BOOL)boolForKey:(NSString*)key {
 	NSNumber *number = [self objectForKey:key];
 	return [number boolValue];
 }
-- (void)setBool:(BOOL)value forKey:(NSString *)key {
+- (void)setBool:(BOOL)value forKey:(NSString*)key {
 	[self setObject:@(value) forKey:key];
 }
 
-- (NSInteger)integerForKey:(NSString *)key {
+- (NSInteger)integerForKey:(NSString*)key {
 	NSNumber *number = [self objectForKey:key];
 	return [number integerValue];
 }
-- (void)setInteger:(NSInteger)value forKey:(NSString *)key {
+- (void)setInteger:(NSInteger)value forKey:(NSString*)key {
 	[self setObject:@(value) forKey:key];
 }
 
-- (NSUInteger)unsignedIntegerForKey:(NSString *)key {
+- (NSUInteger)unsignedIntegerForKey:(NSString*)key {
 	NSNumber *number = [self objectForKey:key];
 	return (NSUInteger)[number integerValue];
 }
-- (void)setUnsignedInteger:(NSUInteger)value forKey:(NSString *)key {
+- (void)setUnsignedInteger:(NSUInteger)value forKey:(NSString*)key {
 	[self setObject:@(value) forKey:key];
 }
 
-- (CGFloat)floatForKey:(NSString *)key {
+- (CGFloat)floatForKey:(NSString*)key {
 	NSNumber *number = [self objectForKey:key];
 	return [number doubleValue];
 }
-- (void)setFloat:(CGFloat)value forKey:(NSString *)key {
+- (void)setFloat:(CGFloat)value forKey:(NSString*)key {
 	[self setObject:@(value) forKey:key];
 }
 
 #pragma mark - Arguments handling
 
-- (void)addArgument:(NSString *)argument {
+- (void)addArgument:(NSString*)argument {
 	[self setObject:argument forKey:GBSettingsArgumentsKey];
 }
 
-- (GBSettings *)settingsForArgument:(NSString *)argument {
+- (GBSettings*)settingsForArgument:(NSString*)argument {
 	return [self settingsForArrayValue:argument key:GBSettingsArgumentsKey];
 }
 
@@ -160,14 +160,14 @@ GB_SYNTHESIZE_OBJECT(NSArray *, arguments, setArguments, GBSettingsArgumentsKey)
 
 #pragma mark - Registration & low level handling
 
-- (void)registerArrayForKey:(NSString *)key {
+- (void)registerArrayForKey:(NSString*)key {
 	[self.arrayKeys addObject:key];
 }
 
-- (id)objectForLocalKey:(NSString *)key {
+- (id)objectForLocalKey:(NSString*)key {
 	return [self.storage objectForKey:key];
 }
-- (void)setObject:(id)value forLocalKey:(NSString *)key {
+- (void)setObject:(id)value forLocalKey:(NSString*)key {
 	[self.storage setObject:value forKey:key];
 }
 
@@ -183,7 +183,7 @@ GB_SYNTHESIZE_OBJECT(NSArray *, arguments, setArguments, GBSettingsArgumentsKey)
 	}
 }
 
-- (GBSettings *)settingsForArrayValue:(NSString *)value key:(NSString *)key {
+- (GBSettings*)settingsForArrayValue:(NSString*)value key:(NSString*)key {
 	__block GBSettings *result = nil;
 	[self enumerateSettings:^(GBSettings *settings, BOOL *stop) {
 		NSArray *arguments = [settings objectForLocalKey:key];
@@ -195,7 +195,7 @@ GB_SYNTHESIZE_OBJECT(NSArray *, arguments, setArguments, GBSettingsArgumentsKey)
 	return result;
 }
 
-- (GBSettings *)settingsForKey:(NSString *)key {
+- (GBSettings*)settingsForKey:(NSString*)key {
 	__block GBSettings *result = nil;
 	[self enumerateSettings:^(GBSettings *settings, BOOL *stop) {
 		if ([settings isKeyPresentAtThisLevel:key]) {
@@ -206,12 +206,12 @@ GB_SYNTHESIZE_OBJECT(NSArray *, arguments, setArguments, GBSettingsArgumentsKey)
 	return result;
 }
 
-- (BOOL)isKeyPresentAtThisLevel:(NSString *)key {
+- (BOOL)isKeyPresentAtThisLevel:(NSString*)key {
 	if ([self.storage objectForKey:key]) return YES;
 	return NO;
 }
 
-- (BOOL)isKeyArray:(NSString *)key {
+- (BOOL)isKeyArray:(NSString*)key {
 	return [self.arrayKeys containsObject:key];
 }
 

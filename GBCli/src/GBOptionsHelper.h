@@ -120,42 +120,40 @@ typedef NSString *(^GBOptionStringBlock)(void);
 
 #pragma mark - Options registration
 
-- (void)registerOptionsFromDefinitions:(GBOptionDefinition *)definitions; // this mode doesn't support option groups at this moment!
-- (void)registerSeparator:(NSString *)description;
-- (void)registerGroup:(NSString *)name description:(NSString *)description optionsBlock:(void(^)(GBOptionsHelper *options))block;
-- (void)registerGroup:(NSString *)name description:(NSString *)description flags:(GBOptionFlags)flags optionsBlock:(void(^)(GBOptionsHelper *options))block;
-- (void)registerOption:(char)shortName long:(NSString *)longName description:(NSString *)description flags:(GBOptionFlags)flags;
+- (void) registerOptionsFromDefinitions:(GBOptionDefinition*)definitions; // this mode doesn't support option groups at this moment!
+- (void) registerSeparator:(NSString*)description;
+- (void) registerGroup:(NSString*)name description:(NSString*)_ optionsBlock:(void(^)(GBOptionsHelper *options))block;
+- (void) registerGroup:(NSString*)name description:(NSString*)_ flags:(GBOptionFlags)flags optionsBlock:(void(^)(GBOptionsHelper *options))block;
+- (void)registerOption:(char)shortName long:(NSString*)longName description:(NSString*)description flags:(GBOptionFlags)flags;
 
 #pragma mark - Integration with other components
 
-- (void)registerOptionsToCommandLineParser:(GBCommandLineParser *)parser;
+- (void)registerOptionsToCommandLineParser:(GBCommandLineParser*)parser;
 
 #pragma mark - Diagnostic info
 
-- (void)printValuesFromSettings:(GBSettings *)settings;
+- (void)printValuesFromSettings:(GBSettings*)settings;
 - (void)printVersion;
 - (void)printHelp;
 
 #pragma mark - Getting information from user
 
-@property (nonatomic, copy) GBOptionStringBlock applicationName;
-@property (nonatomic, copy) GBOptionStringBlock applicationVersion;
-@property (nonatomic, copy) GBOptionStringBlock applicationBuild;
+@property (nonatomic, copy) GBOptionStringBlock applicationName,
+                                                applicationVersion,
+                                                applicationBuild;
 
 #pragma mark - Hooks for injecting text to output
 
-@property (nonatomic, copy) GBOptionStringBlock printValuesHeader;
-@property (nonatomic, copy) GBOptionStringBlock printValuesArgumentsHeader;
-@property (nonatomic, copy) GBOptionStringBlock printValuesOptionsHeader;
-@property (nonatomic, copy) GBOptionStringBlock printValuesFooter;
+@property (nonatomic, copy) GBOptionStringBlock printValuesHeader,
+                                                printValuesArgumentsHeader,
+                                                printValuesOptionsHeader,
+                                                printValuesFooter;
 
-@property (nonatomic, copy) GBOptionStringBlock printHelpHeader;
-@property (nonatomic, copy) GBOptionStringBlock printHelpFooter;
+@property (nonatomic, copy) GBOptionStringBlock printHelpHeader,
+                                                printHelpFooter;
 
 @end
 
-#pragma mark - 
-
 @interface GBCommandLineParser (GBOptionsHelper)
-- (void)registerOptions:(GBOptionsHelper *)options;
+- (void)registerOptions:(GBOptionsHelper*)options;
 @end

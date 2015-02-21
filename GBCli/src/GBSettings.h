@@ -40,55 +40,55 @@
 
 #pragma mark - Initialization & disposal
 
-+ (instancetype)settingsWithName:(NSString *)name parent:(GBSettings *)parent;
-- (instancetype)initWithName:(NSString *)name parent:(GBSettings *)parent;
++ (instancetype)settingsWithName:(NSString*)name parent:(GBSettings*)parent;
+- (instancetype)initWithName:(NSString*)name parent:(GBSettings*)parent;
 
 #pragma mark - Settings serialization support
 
-- (BOOL)loadSettingsFromPlist:(NSString *)path error:(NSError **)error;
-- (BOOL)saveSettingsToPlist:(NSString *)path error:(NSError **)error;
+- (BOOL)loadSettingsFromPlist:(NSString*)path error:(NSError **)error;
+- (BOOL)saveSettingsToPlist:(NSString*)path error:(NSError **)error;
 
 #pragma mark - Values handling
 
-- (id)objectForKey:(NSString *)key;
-- (void)setObject:(id)value forKey:(NSString *)key;
+- (id)objectForKey:(NSString*)key;
+- (void)setObject:(id)value forKey:(NSString*)key;
 
-- (BOOL)boolForKey:(NSString *)key;
-- (void)setBool:(BOOL)value forKey:(NSString *)key;
+- (BOOL)boolForKey:(NSString*)key;
+- (void)setBool:(BOOL)value forKey:(NSString*)key;
 
-- (NSInteger)integerForKey:(NSString *)key;
-- (void)setInteger:(NSInteger)value forKey:(NSString *)key;
+- (NSInteger)integerForKey:(NSString*)key;
+- (void)setInteger:(NSInteger)value forKey:(NSString*)key;
 
-- (NSUInteger)unsignedIntegerForKey:(NSString *)key;
-- (void)setUnsignedInteger:(NSUInteger)value forKey:(NSString *)key;
+- (NSUInteger)unsignedIntegerForKey:(NSString*)key;
+- (void)setUnsignedInteger:(NSUInteger)value forKey:(NSString*)key;
 
-- (CGFloat)floatForKey:(NSString *)key;
-- (void)setFloat:(CGFloat)value forKey:(NSString *)key;
+- (CGFloat)floatForKey:(NSString*)key;
+- (void)setFloat:(CGFloat)value forKey:(NSString*)key;
 
 #pragma mark - Arguments handling
 
-- (void)addArgument:(NSString *)argument;
-- (GBSettings *)settingsForArgument:(NSString *)argument;
+- (void) addArgument:(NSString*)argument;
+- (GBSettings*)settingsForArgument:(NSString*)argument;
 @property (nonatomic, strong) NSArray *arguments;
 
 #pragma mark - Registration & low level handling
 
-- (void)registerArrayForKey:(NSString *)key;
-- (id)objectForLocalKey:(NSString *)key;
-- (void)setObject:(id)value forLocalKey:(NSString *)key;
+- (void)registerArrayForKey:(NSString*)key;
+- (id)objectForLocalKey:(NSString*)key;
+- (void)setObject:(id)value forLocalKey:(NSString*)key;
 
 #pragma mark - Introspection
 
 - (void)enumerateSettings:(void(^)(GBSettings *settings, BOOL *stop))handler;
-- (GBSettings *)settingsForArrayValue:(NSString *)value key:(NSString *)key;
-- (GBSettings *)settingsForKey:(NSString *)key;
-- (BOOL)isKeyPresentAtThisLevel:(NSString *)key;
-- (BOOL)isKeyArray:(NSString *)key;
+- (GBSettings*)settingsForArrayValue:(NSString*)value key:(NSString*)key;
+- (GBSettings*)settingsForKey:(NSString*)key;
+- (BOOL)isKeyPresentAtThisLevel:(NSString*)key;
+- (BOOL)isKeyArray:(NSString*)key;
 
 #pragma mark - Properties
 
-@property (nonatomic, readonly, copy) NSString *name;
-@property (nonatomic, readonly, strong) GBSettings *parent;
+@property (readonly, copy) NSString *name;
+@property (readonly) GBSettings *parent;
 
 @end
 

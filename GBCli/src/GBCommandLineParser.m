@@ -20,8 +20,8 @@ static NSString * const GBCommandLineEndOfOptionsKey = @"end-of-options"; // thi
 #pragma mark -
 
 @interface GBCommandLineParser ()
-- (NSDictionary *)optionDataForOption:(NSString *)shortOrLongName value:(NSString **)value;
-- (BOOL)isShortOrLongOptionName:(NSString *)value;
+- (NSDictionary*)optionDataForOption:(NSString*)shortOrLongName value:(NSString **)value;
+- (BOOL)isShortOrLongOptionName:(NSString*)value;
 @property (nonatomic, strong) GBSettings *settings; // optional (only required by simplified parsing methods)
 @property (nonatomic, strong) NSMutableDictionary *parsedOptions;
 @property (nonatomic, strong) NSMutableArray *parsedArguments;
@@ -57,7 +57,7 @@ static NSString * const GBCommandLineEndOfOptionsKey = @"end-of-options"; // thi
 
 #pragma mark - Options registration
 
-- (void)beginRegisterOptionGroup:(NSString *)name {
+- (void)beginRegisterOptionGroup:(NSString*)name {
 	self.currentOptionsGroupOptions = self.registeredOptionGroupsByNames[name];
 
 	// Warn if we already have the given group.
@@ -76,7 +76,7 @@ static NSString * const GBCommandLineEndOfOptionsKey = @"end-of-options"; // thi
 	self.currentOptionsGroupOptions = nil;
 }
 
-- (void)registerOption:(NSString *)longOption shortcut:(char)shortOption requirement:(GBValueRequirements)requirement {
+- (void)registerOption:(NSString*)longOption shortcut:(char)shortOption requirement:(GBValueRequirements)requirement {
 	// Register option data.
 	NSMutableDictionary *data = [NSMutableDictionary dictionary];
 	data[GBCommandLineLongOptionKey] = longOption;
@@ -102,21 +102,21 @@ static NSString * const GBCommandLineEndOfOptionsKey = @"end-of-options"; // thi
 	}
 }
 
-- (void)registerOption:(NSString *)longOption requirement:(GBValueRequirements)requirement {
+- (void)registerOption:(NSString*)longOption requirement:(GBValueRequirements)requirement {
 	[self registerOption:longOption shortcut:0 requirement:requirement];
 }
 
-- (void)registerSwitch:(NSString *)longOption shortcut:(char)shortOption {
+- (void)registerSwitch:(NSString*)longOption shortcut:(char)shortOption {
 	[self registerOption:longOption shortcut:shortOption requirement:GBValueNone];
 }
 
-- (void)registerSwitch:(NSString *)longOption {
+- (void)registerSwitch:(NSString*)longOption {
 	[self registerSwitch:longOption shortcut:0];
 }
 
 #pragma mark - Options parsing - Simple methods with default behavior
 
-- (void)registerSettings:(GBSettings *)settings {
+- (void)registerSettings:(GBSettings*)settings {
 	self.settings = settings;
 }
 
@@ -130,7 +130,7 @@ static NSString * const GBCommandLineEndOfOptionsKey = @"end-of-options"; // thi
 	return [self parseOptionsWithArguments:argv count:argc block:[self simplifiedOptionsParserBlock]];
 }
 
-- (BOOL)parseOptionsWithArguments:(NSArray *)arguments commandLine:(NSString *)cmd {
+- (BOOL)parseOptionsWithArguments:(NSArray*)arguments commandLine:(NSString*)cmd {
 	[self validateSimplifiedOptionsWithSelector:_cmd];
 	return [self parseOptionsWithArguments:arguments commandLine:cmd block:[self simplifiedOptionsParserBlock]];
 }
@@ -182,7 +182,7 @@ static NSString * const GBCommandLineEndOfOptionsKey = @"end-of-options"; // thi
 	return [self parseOptionsWithArguments:arguments commandLine:command block:handler];
 }
 
-- (BOOL)parseOptionsWithArguments:(NSArray *)arguments commandLine:(NSString *)cmd block:(GBCommandLineParseBlock)handler {
+- (BOOL)parseOptionsWithArguments:(NSArray*)arguments commandLine:(NSString*)cmd block:(GBCommandLineParseBlock)handler {
 	// Cleanup in case parsing is invoked multiple times.
 	self.currentOptionsGroupOptions = nil;
 	[self.parsedOptions removeAllObjects];
@@ -315,7 +315,7 @@ static NSString * const GBCommandLineEndOfOptionsKey = @"end-of-options"; // thi
 
 #pragma mark - Helper methods
 
-- (NSDictionary *)optionDataForOption:(NSString *)shortOrLongName value:(NSString **)value {
+- (NSDictionary*)optionDataForOption:(NSString*)shortOrLongName value:(NSString **)value {
 	NSString *name = nil;
 	NSDictionary *options = nil;
 	
@@ -345,13 +345,13 @@ static NSString * const GBCommandLineEndOfOptionsKey = @"end-of-options"; // thi
 	return [options objectForKey:name];
 }
 
-- (BOOL)isShortOrLongOptionName:(NSString *)value {
+- (BOOL)isShortOrLongOptionName:(NSString*)value {
 	if ([value hasPrefix:@"--"]) return YES;
 	if ([value hasPrefix:@"-"]) return YES;
 	return NO;
 }
 
-- (BOOL)isOptionGroupName:(NSString *)value {
+- (BOOL)isOptionGroupName:(NSString*)value {
 	if (!self.registeredOptionGroupsByNames) return NO;
 	if (!self.registeredOptionGroupsByNames[value]) return NO;
 	return YES;
@@ -359,11 +359,11 @@ static NSString * const GBCommandLineEndOfOptionsKey = @"end-of-options"; // thi
 
 #pragma mark - Getting parsed results
 
-- (id)valueForOption:(NSString *)longOption {
+- (id)valueForOption:(NSString*)longOption {
 	return [self.parsedOptions objectForKey:longOption];
 }
 
-- (NSArray *)arguments {
+- (NSArray*)arguments {
 	return [self.parsedArguments copy];
 }
 
